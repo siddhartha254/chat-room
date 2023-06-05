@@ -7,6 +7,8 @@ import Cookies from "universal-cookie";
 
 import {signOut} from 'firebase/auth';
 import {auth} from './firebase';
+import Header from './components/Header';
+import Header2 from './components/Header2';
 
 const cookies = new Cookies();
 
@@ -30,19 +32,23 @@ function App() {
   //not authenticated
   if(!isAuth){
     return (
+      <>
       <div className="App">
+        <Header />
         <Auth setIsAuth={setIsAuth}/>
       </div>
+      </>
     );
   }
 
   //authenticated
   return(
     <>
+    <Header2 />
     {room?<Chat room={room}/> 
-    : <div className="room" label="Enter Room Name">
-        <input ref={roomInputRef}/>
-        <button onClick={()=>setRoom(roomInputRef.current.value)}>
+    : <div className="room" >
+        <input ref={roomInputRef} placeholder="Enter Room Name"/>
+        <button  onClick={()=>setRoom(roomInputRef.current.value)}>
           Enter Room</button>
       </div>}
 

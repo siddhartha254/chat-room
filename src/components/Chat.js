@@ -41,7 +41,7 @@ const Chat = (props) => {
   return (
     <div className="chat-app">
       <div className="header">
-        <h1>{room}</h1>
+        <h1>Room Name: {room}</h1>
       </div>
       <div className="messages">
         {messages.map((message)=>(
