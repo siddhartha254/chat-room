@@ -1,25 +1,56 @@
-import logo from './logo.svg';
 import './App.css';
+import Auth from './components/Auth';
+import Chat from './components/Chat';
+import React, {useState, useRef} from "react";
+
+import Cookies from "universal-cookie";
+
+import {signOut} from 'firebase/auth';
+import {auth} from './firebase';
+
+const cookies = new Cookies();
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  
+  //default value is auth-token,
+  const [isAuth, setIsAuth] = useState(cookies.get("auth-token"));
+  
+  const [room, setRoom] = useState("");
+  const roomInputRef = useRef(null);
+
+  const signOutUser = async() =>{
+    await signOut(auth);
+    setIsAuth(false);
+    setRoom(null);
+    cookies.remove("auth-token");
+  };
+
+  //not authenticated
+  if(!isAuth){
+    return (
+      <div className="App">
+        <Auth setIsAuth={setIsAuth}/>
+      </div>
+    );
+  }
+
+  //authenticated
+  return(
+    <>
+    {room?<Chat room={room}/> 
+    : <div className="room" label="Enter Room Name">
+        <input ref={roomInputRef}/>
+        <button onClick={()=>setRoom(roomInputRef.current.value)}>
+          Enter Room</button>
+      </div>}
+
+      <div className="sign-out">
+        <button onCick={signOutUser}>Sign Out</button>
+      </div>
+    </>
+  )
+
 }
 
 export default App;
