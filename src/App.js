@@ -20,10 +20,11 @@ function App() {
   const roomInputRef = useRef(null);
 
   const signOutUser = async() =>{
-    await signOut(auth);
-    setIsAuth(false);
-    setRoom(null);
-    cookies.remove("auth-token");
+    await signOut(auth)
+    setIsAuth(false)
+    setRoom(null)
+    cookies.remove("auth-token")
+    console.log("doing");
   };
 
   //not authenticated
@@ -46,7 +47,7 @@ function App() {
       </div>}
 
       <div className="sign-out">
-        <button onCick={signOutUser}>Sign Out</button>
+        <button onClick={signOutUser}>Sign Out</button>
       </div>
     </>
   )
