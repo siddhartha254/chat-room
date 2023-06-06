@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { db, auth } from "../firebase";
-import {collection,addDoc,where,serverTimestamp,onSnapshot,query,orderBy,} from "firebase/firestore";
+import {collection,addDoc,where,serverTimestamp,onSnapshot,query,orderBy} from "firebase/firestore";
 import "../App.css";
+import ReactScrollableFeed from "react-scrollable-feed";
 
 const Chat = (props) => {
   
@@ -44,6 +45,7 @@ const Chat = (props) => {
       <div className="header">
         <h1>Room Name: {room}</h1>
       </div>
+
       <div className="messages">
         {messages.map((message)=>(
           <div className="message" key={message.id}>
@@ -51,7 +53,9 @@ const Chat = (props) => {
             {message.text}
           </div>
         ))}
-      </div>
+        </div>
+        
+      
       <form onSubmit={handleSubmit} className="new-message-form">
         <input
           type="text"
