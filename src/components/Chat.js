@@ -38,6 +38,7 @@ const Chat = (props) => {
     setNewMessage("");
   };
 
+
   return (
     <div className="chat-app">
       <div className="header">
@@ -46,7 +47,7 @@ const Chat = (props) => {
       <div className="messages">
         {messages.map((message)=>(
           <div className="message" key={message.id}>
-            <span className="user">{message.user}</span>
+            <span className="user">{message.user}: </span>
             {message.text}
           </div>
         ))}
@@ -63,6 +64,7 @@ const Chat = (props) => {
           Send
         </button>
       </form>
+      
     </div>
   );
 };

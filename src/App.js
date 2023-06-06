@@ -9,6 +9,7 @@ import {signOut} from 'firebase/auth';
 import {auth} from './firebase';
 import Header from './components/Header';
 import Header2 from './components/Header2';
+import Leave from './components/Leave';
 
 const cookies = new Cookies();
 
@@ -45,7 +46,7 @@ function App() {
   return(
     <>
     <Header2 />
-    {room?<Chat room={room}/> 
+    {room?<><Chat room={room}/><Leave setRoom={setRoom}/> </>
     : <div className="room" >
         <input ref={roomInputRef} placeholder="Enter Room Name"/>
         <button  onClick={()=>setRoom(roomInputRef.current.value)}>
